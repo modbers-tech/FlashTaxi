@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FlashTaxi</title>
+
+<style>
+body{
+font-family:Arial;
+background:#0f0f0f;
+color:white;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+height:100vh;
+margin:0;
+text-align:center;
+}
+
+h1{
+font-size:40px;
+color:#ffd600;
+margin-bottom:30px;
+}
+
+button{
+width:280px;
+padding:18px;
+margin:12px;
+font-size:20px;
+border:none;
+border-radius:14px;
+cursor:pointer;
+}
+
+.call{
+background:#00c853;
+color:white;
+}
+
+.sms{
+background:#2962ff;
+color:white;
+}
+
+.map{
+background:#aa00ff;
+color:white;
+}
+</style>
+</head>
+
+<body>
+
+<h1>⚡ FlashTaxi</h1>
+
+<button class="call" onclick="callTaxi()">📞 SKAMBINTI TAKSI</button>
+<button class="sms" onclick="smsTaxi()">💬 SIŲSTI SMS TAKSI</button>
+<button class="map" onclick="openMap()">🗺 MANO VIETA</button>
+
+<script>
+
+const number="+37063416430";
+let lat=null;
+let lon=null;
+
+if(navigator.geolocation){
+navigator.geolocation.getCurrentPosition(function(position){
+lat=position.coords.latitude;
+lon=position.coords.longitude;
+});
+}
+
+function callTaxi(){
+window.location.href="tel:"+number;
+}
+
+function smsTaxi(){
+
+let message="Sveiki, reikia taksi.";
+
+if(lat && lon){
+message+=" Mano vieta: https://maps.google.com/?q="+lat+","+lon;
+}
+
+window.location.href="sms:"+number+"?body="+encodeURIComponent(message);
+
+}
+
+function openMap(){
+
+if(lat && lon){
+window.open("https://maps.google.com/?q="+lat+","+lon);
+}
+
+}
+
+</script>
+
+</body>
+</html>
