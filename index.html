@@ -3,35 +3,31 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>FlashTaxi</title>
 
 <style>
+
 body{
 font-family:Arial;
-background:#0f0f0f;
-color:white;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-height:100vh;
-margin:0;
 text-align:center;
+background:#111;
+color:white;
+padding:30px;
 }
 
 h1{
 font-size:40px;
-color:#ffd600;
-margin-bottom:30px;
+margin-bottom:20px;
 }
 
 button{
-width:280px;
+width:260px;
 padding:18px;
-margin:12px;
-font-size:20px;
+margin:10px;
 border:none;
-border-radius:14px;
+border-radius:12px;
+font-size:18px;
 cursor:pointer;
 }
 
@@ -49,6 +45,13 @@ color:white;
 background:#aa00ff;
 color:white;
 }
+
+#clock{
+font-size:32px;
+margin-bottom:25px;
+font-weight:bold;
+}
+
 </style>
 </head>
 
@@ -56,22 +59,17 @@ color:white;
 
 <h1>⚡ FlashTaxi</h1>
 
+<div id="clock"></div>
+
 <button class="call" onclick="callTaxi()">📞 SKAMBINTI TAKSI</button>
+
 <button class="sms" onclick="smsTaxi()">💬 SIŲSTI SMS TAKSI</button>
+
 <button class="map" onclick="openMap()">🗺 MANO VIETA</button>
 
 <script>
 
 const number="+37063416430";
-let lat=null;
-let lon=null;
-
-if(navigator.geolocation){
-navigator.geolocation.getCurrentPosition(function(position){
-lat=position.coords.latitude;
-lon=position.coords.longitude;
-});
-}
 
 function callTaxi(){
 window.location.href="tel:"+number;
@@ -79,35 +77,67 @@ window.location.href="tel:"+number;
 
 function smsTaxi(){
 
-let message="Sveiki, reikia taksi.";
+if(navigator.geolocation){
 
-if(lat && lon){
-message+=" Mano vieta: https://maps.google.com/?q="+lat+","+lon;
-}
+navigator.geolocation.getCurrentPosition(function(position){
+
+let lat=position.coords.latitude;
+let lon=position.coords.longitude;
+
+let message="Sveiki, reikia FlashTaxi. Mano vieta: https://maps.google.com/?q="+lat+","+lon;
 
 window.location.href="sms:"+number+"?body="+encodeURIComponent(message);
+
+}, function(){
+
+let message="Sveiki, reikia FlashTaxi.";
+window.location.href="sms:"+number+"?body="+encodeURIComponent(message);
+
+});
+
+}else{
+
+let message="Sveiki, reikia FlashTaxi.";
+window.location.href="sms:"+number+"?body="+encodeURIComponent(message);
+
+}
 
 }
 
 function openMap(){
 
-if(lat && lon){
+if(navigator.geolocation){
+
+navigator.geolocation.getCurrentPosition(function(position){
+
+let lat=position.coords.latitude;
+let lon=position.coords.longitude;
+
 window.open("https://maps.google.com/?q="+lat+","+lon);
-}
+
+});
 
 }
 
-</script>
+}
 
-</body><div id="clock" style="font-size:35px;font-weight:bold;margin-bottom:20px;"></div><script>
 function updateClock(){
- const now = new Date();
- const h = String(now.getHours()).padStart(2,'0');
- const m = String(now.getMinutes()).padStart(2,'0');
- const s = String(now.getSeconds()).padStart(2,'0');
- document.getElementById("clock").innerHTML = h + ":" + m + ":" + s;
+
+const now=new Date();
+
+const h=String(now.getHours()).padStart(2,'0');
+const m=String(now.getMinutes()).padStart(2,'0');
+const s=String(now.getSeconds()).padStart(2,'0');
+
+document.getElementById("clock").innerHTML=h+":"+m+":"+s;
+
 }
+
 setInterval(updateClock,1000);
+
 updateClock();
+
 </script>
+
+</body>
 </html>
