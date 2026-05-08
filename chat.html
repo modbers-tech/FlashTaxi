@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="lt">
 <head>
   <meta charset="UTF-8">
@@ -7,7 +6,6 @@
   <title>FlashTaxi Chat</title>
 
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 
   <style>
@@ -47,14 +45,17 @@
       flex: 1;
       overflow-y: auto;
       padding: 15px;
+      display: flex;
+      flex-direction: column;
     }
 
     .msg {
-      background: #2d2d2d;
-      padding: 10px;
-      border-radius: 12px;
-      margin-bottom: 10px;
+      padding: 12px;
+      border-radius: 14px;
+      margin-bottom: 15px;
       word-wrap: break-word;
+      max-width: 75%;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
     }
 
     .bottom {
@@ -85,24 +86,37 @@
     button:hover {
       opacity: 0.9;
     }
-  </style>
 
+    #nameInput {
+      width: calc(100% - 20px);
+      margin: 10px;
+      box-sizing: border-box;
+    }
+
+    .username {
+      font-size: 13px;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+  </style>
 </head>
 <body>
 
 <div class="chat-box">
-  <div class="header">⚡ FlashTaxi Chat</div>
+
+  <div class="header">
+    ⚡ FlashTaxi Chat
+  </div>
 
   <div id="messages"></div>
 
-  <div style="padding:10px; background:#1b1b1b; border-top:1px solid #333;">
-    <input type="text" id="nameInput" placeholder="Tavo vardas..." style="width:100%; margin-bottom:10px; padding:12px; border:none; border-radius:10px; outline:none; font-size:16px;">
-  </div>
+  <input type="text" id="nameInput" placeholder="Tavo vardas...">
 
   <div class="bottom">
     <input type="text" id="messageInput" placeholder="Rašyti žinutę...">
     <button onclick="sendMessage()">Siųsti</button>
   </div>
+
 </div>
 
 <script>
@@ -125,12 +139,13 @@ const messagesDiv = document.getElementById('messages');
 function sendMessage() {
 
   const input = document.getElementById('messageInput');
+  const nameInput = document.getElementById('nameInput');
 
   const text = input.value.trim();
 
   if(text === '') return;
 
-  const name = document.getElementById('nameInput').value.trim() || 'Anonimas';
+  const name = nameInput.value.trim() || 'Vartotojas';
 
   db.collection('messages').add({
     name: name,
@@ -141,8 +156,6 @@ function sendMessage() {
   input.value = '';
 }
 
-// REAL TIME CHAT
-
 db.collection('messages')
 .orderBy('time')
 .onSnapshot(snapshot => {
@@ -151,11 +164,37 @@ db.collection('messages')
 
   snapshot.forEach(doc => {
 
+    const data = doc.data();
+
     const msg = document.createElement('div');
 
     msg.className = 'msg';
 
-    msg.innerHTML = '<b>' + doc.data().name + ':</b> ' + doc.data().text;
+    const currentUser =
+      document.getElementById('nameInput').value || 'Vartotojas';
+
+    const isMine =
+      (data.name || 'Vartotojas') === currentUser;
+
+    if(isMine) {
+      msg.style.alignSelf = 'flex-end';
+      msg.style.background = '#ffd000';
+      msg.style.color = 'black';
+    } else {
+      msg.style.alignSelf = 'flex-start';
+      msg.style.background = '#2d2d2d';
+      msg.style.color = 'white';
+    }
+
+    msg.innerHTML = `
+      <div class="username" style="color:${isMine ? '#000' : '#ffd000'}">
+        ${(data.name || 'Vartotojas')}
+      </div>
+
+      <div>
+        ${data.text}
+      </div>
+    `;
 
     messagesDiv.appendChild(msg);
   });
