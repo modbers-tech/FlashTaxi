@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="lt">
 <head>
 
@@ -13,6 +12,10 @@
 
 <style>
 
+*{
+box-sizing:border-box;
+}
+
 body{
 font-family:Arial;
 background:#111;
@@ -22,6 +25,7 @@ display:flex;
 justify-content:center;
 align-items:center;
 height:100vh;
+overflow:hidden;
 }
 
 .wrapper{
@@ -32,18 +36,37 @@ padding:30px;
 }
 
 h1{
-font-size:40px;
-margin-bottom:25px;
+font-size:42px;
+margin-bottom:30px;
 }
 
-button{
+/* MYGTUKAI */
+
+.btn{
+display:block;
+
 width:100%;
+
 padding:18px;
-margin:10px 0;
+
+margin:12px 0;
+
 border:none;
-border-radius:12px;
+border-radius:16px;
+
 font-size:18px;
+font-weight:bold;
+
 cursor:pointer;
+
+text-decoration:none;
+
+transition:0.2s;
+}
+
+.btn:hover{
+transform:scale(1.02);
+opacity:0.95;
 }
 
 .call{
@@ -66,7 +89,12 @@ background:#ff9800;
 color:white;
 }
 
-/* taxi laikrodzio remelis */
+.chat{
+background:#ffd000;
+color:black;
+}
+
+/* LAIKRODIS */
 
 #clock{
 font-size:32px;
@@ -88,6 +116,29 @@ border-image: repeating-linear-gradient(
 ) 4;
 }
 
+/* MOBILE */
+
+@media(max-width:600px){
+
+.wrapper{
+padding:20px;
+}
+
+h1{
+font-size:36px;
+}
+
+.btn{
+font-size:16px;
+padding:16px;
+}
+
+#clock{
+font-size:26px;
+}
+
+}
+
 </style>
 
 </head>
@@ -98,13 +149,23 @@ border-image: repeating-linear-gradient(
 
 <h1>⚡ FlashTaxi</h1>
 
-<button class="call" onclick="callTaxi()">📞 SKAMBINTI TAKSI</button>
+<button class="btn call" onclick="callTaxi()">
+📞 SKAMBINTI TAKSI
+</button>
 
-<button class="sms" onclick="smsTaxi()">💬 SIŲSTI SMS TAKSI</button>
+<button class="btn sms" onclick="smsTaxi()">
+💬 SIŲSTI SMS TAKSI
+</button>
 
-<button class="map" onclick="openMap()">🗺 MANO VIETA</button>
+<button class="btn map" onclick="openMap()">
+🗺 MANO VIETA
+</button>
 
-<button id="installBtn" class="install" style="display:none;">
+<a href="chat.html" class="btn chat">
+💬 FlashTaxi Chat
+</a>
+
+<button id="installBtn" class="btn install" style="display:none;">
 📲 Įsidiegti FlashTaxi
 </button>
 
@@ -116,9 +177,15 @@ border-image: repeating-linear-gradient(
 
 const number="+37063416430";
 
+/* SKAMBINTI */
+
 function callTaxi(){
+
 window.location.href="tel:"+number;
+
 }
+
+/* SMS */
 
 function smsTaxi(){
 
@@ -129,25 +196,34 @@ navigator.geolocation.getCurrentPosition(function(position){
 let lat=position.coords.latitude;
 let lon=position.coords.longitude;
 
-let message="Sveiki, reikia FlashTaxi. Mano vieta: https://maps.google.com/?q="+lat+","+lon;
+let message=
+"Sveiki, reikia FlashTaxi. Mano vieta: https://maps.google.com/?q="
++lat+","+lon;
 
-window.location.href="sms:"+number+"?body="+encodeURIComponent(message);
+window.location.href=
+"sms:"+number+"?body="+encodeURIComponent(message);
 
 }, function(){
 
 let message="Sveiki, reikia FlashTaxi.";
-window.location.href="sms:"+number+"?body="+encodeURIComponent(message);
+
+window.location.href=
+"sms:"+number+"?body="+encodeURIComponent(message);
 
 });
 
 }else{
 
 let message="Sveiki, reikia FlashTaxi.";
-window.location.href="sms:"+number+"?body="+encodeURIComponent(message);
+
+window.location.href=
+"sms:"+number+"?body="+encodeURIComponent(message);
 
 }
 
 }
+
+/* MAP */
 
 function openMap(){
 
@@ -158,7 +234,9 @@ navigator.geolocation.getCurrentPosition(function(position){
 let lat=position.coords.latitude;
 let lon=position.coords.longitude;
 
-window.open("https://maps.google.com/?q="+lat+","+lon);
+window.open(
+"https://maps.google.com/?q="+lat+","+lon
+);
 
 });
 
@@ -166,7 +244,7 @@ window.open("https://maps.google.com/?q="+lat+","+lon);
 
 }
 
-/* laikrodis */
+/* LAIKRODIS */
 
 function updateClock(){
 
@@ -176,32 +254,43 @@ const h=String(now.getHours()).padStart(2,'0');
 const m=String(now.getMinutes()).padStart(2,'0');
 const s=String(now.getSeconds()).padStart(2,'0');
 
-document.getElementById("clock").innerHTML=h+":"+m+":"+s;
+document.getElementById("clock").innerHTML=
+h+":"+m+":"+s;
 
 }
 
 setInterval(updateClock,1000);
+
 updateClock();
 
-/* install mygtukas */
+/* INSTALL */
 
 let deferredPrompt;
 
-window.addEventListener("beforeinstallprompt", (e) => {
+window.addEventListener(
+"beforeinstallprompt",
+(e) => {
 
 e.preventDefault();
 
 deferredPrompt = e;
 
-document.getElementById("installBtn").style.display = "block";
+document.getElementById(
+"installBtn"
+).style.display = "block";
 
 });
 
-document.getElementById("installBtn").addEventListener("click", async () => {
+document.getElementById(
+"installBtn"
+).addEventListener(
+"click",
+async () => {
 
 deferredPrompt.prompt();
 
-const { outcome } = await deferredPrompt.userChoice;
+const { outcome } =
+await deferredPrompt.userChoice;
 
 deferredPrompt = null;
 
