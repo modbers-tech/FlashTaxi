@@ -96,7 +96,7 @@ font-weight:bold;
 text-align:center;
 }
 
-/* BACK BUTTON */
+/* BACK */
 
 .back-btn{
 position:absolute;
@@ -219,7 +219,7 @@ cursor:pointer;
 font-size:12px;
 }
 
-/* BOTTOM */
+/* INPUT */
 
 .bottom{
 display:flex;
@@ -309,7 +309,23 @@ border-left:3px solid #00ff00;
 }
 
 body.irc .username{
+
+display:inline-block;
+
+padding:2px 6px;
+
+border:1px solid #00ff00;
+
+background:#001100;
+
 color:#00ff00 !important;
+
+border-radius:4px;
+
+margin-bottom:4px;
+
+font-weight:bold;
+
 }
 
 body.irc .bottom{
@@ -377,8 +393,6 @@ font-size:13px;
 
 <body>
 
-<!-- SIDEBAR -->
-
 <div class="sidebar">
 
 <div class="sidebar-header">
@@ -403,8 +417,6 @@ Realaus laiko pokalbiai
 
 </div>
 
-<!-- CHAT -->
-
 <div class="chat-area">
 
 <div class="header">
@@ -416,8 +428,6 @@ Realaus laiko pokalbiai
 ⚡ FlashTaxi Chat
 
 </div>
-
-<!-- SKINS -->
 
 <div class="skin-bar">
 
@@ -431,11 +441,7 @@ Realaus laiko pokalbiai
 
 </div>
 
-<!-- MESSAGES -->
-
 <div id="messages"></div>
-
-<!-- NAME -->
 
 <div class="name-bar">
 
@@ -448,8 +454,6 @@ Vartotojas
 </button>
 
 </div>
-
-<!-- INPUT -->
 
 <div class="bottom">
 
@@ -471,8 +475,6 @@ Siųsti
 </div>
 
 <script>
-
-/* FIREBASE */
 
 const firebaseConfig = {
 
@@ -496,8 +498,6 @@ const db = firebase.firestore();
 
 const messagesDiv =
 document.getElementById('messages');
-
-/* USER */
 
 let userName =
 localStorage.getItem('flashTaxiName')
@@ -529,8 +529,6 @@ document.getElementById(
 
 }
 
-/* SEND */
-
 function sendMessage(){
 
 const input =
@@ -552,8 +550,6 @@ input.value='';
 
 }
 
-/* ENTER */
-
 document
 .getElementById('messageInput')
 .addEventListener('keypress', function(e){
@@ -565,8 +561,6 @@ sendMessage();
 }
 
 });
-
-/* CHAT */
 
 db.collection('messages')
 
@@ -658,8 +652,6 @@ messagesDiv.scrollTop =
 messagesDiv.scrollHeight;
 
 });
-
-/* SKINS */
 
 function setIRC(){
 
