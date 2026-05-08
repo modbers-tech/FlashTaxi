@@ -25,10 +25,9 @@ color:white;
 height:100vh;
 display:flex;
 overflow:hidden;
-transition:0.2s;
 }
 
-/* KAIRE */
+/* SIDEBAR */
 
 .sidebar{
 width:260px;
@@ -36,7 +35,6 @@ background:#181818;
 border-right:1px solid #333;
 display:flex;
 flex-direction:column;
-transition:0.2s;
 }
 
 .sidebar-header{
@@ -77,7 +75,7 @@ color:#aaa;
 font-size:14px;
 }
 
-/* DESINE */
+/* CHAT */
 
 .chat-area{
 flex:1;
@@ -89,98 +87,58 @@ overflow:hidden;
 /* HEADER */
 
 .header{
-
 position:relative;
-
 background:#ffd000;
 color:black;
-
 padding:18px 18px 18px 90px;
-
 font-size:28px;
 font-weight:bold;
-
 text-align:center;
-
-transition:0.2s;
-
 }
 
-/* GRIZTI */
+/* BACK BUTTON */
 
 .back-btn{
-
 position:absolute;
-
 left:15px;
 top:10px;
-
 background:#000;
 color:#ffd000;
-
 text-decoration:none;
-
 padding:10px 16px;
-
 border-radius:12px;
-
 font-size:15px;
 font-weight:bold;
-
 border:2px solid #ffd000;
-
 transition:0.2s;
-
 }
 
 .back-btn:hover{
-
 background:#ffd000;
 color:black;
-
 }
 
-/* THEME SWITCH */
+/* SKINS */
 
-.theme-switch{
-
+.skin-bar{
 display:flex;
-
 gap:10px;
-
 padding:10px;
-
 background:#111;
-
-border-bottom:1px solid #222;
-
+border-bottom:1px solid #333;
 }
 
-.theme-switch button{
-
-padding:8px 14px;
-
-border:none;
-
-border-radius:8px;
-
-cursor:pointer;
-
-font-weight:bold;
-
+.skin-btn{
 background:#ffd000;
-
-transition:0.2s;
-
+color:black;
+border:none;
+padding:10px 14px;
+border-radius:10px;
+font-weight:bold;
+cursor:pointer;
 }
 
-.theme-switch button:hover{
-
-opacity:0.9;
-
-}
-
-/* ZINUTES */
+/* MESSAGES */
 
 #messages{
 flex:1;
@@ -224,26 +182,20 @@ font-size:11px;
 opacity:0.7;
 }
 
-/* VARDO BLOKAS */
+/* NAME BAR */
 
 .name-bar{
 display:flex;
 align-items:center;
 justify-content:space-between;
-
 width:170px;
-
 margin-left:auto;
 margin-right:10px;
 margin-top:8px;
 margin-bottom:8px;
-
 padding:6px 8px;
-
 background:#1b1b1b;
-
 border:1px solid #333;
-
 border-radius:12px;
 }
 
@@ -265,21 +217,15 @@ border-radius:8px;
 padding:5px 8px;
 cursor:pointer;
 font-size:12px;
-transition:0.2s;
 }
 
-.edit-btn:hover{
-background:#3a3a3a;
-}
-
-/* APACIA */
+/* BOTTOM */
 
 .bottom{
 display:flex;
 padding:10px;
 background:#222;
 gap:10px;
-transition:0.2s;
 }
 
 #messageInput{
@@ -289,7 +235,8 @@ border:none;
 border-radius:12px;
 outline:none;
 font-size:16px;
-transition:0.2s;
+background:white;
+color:black;
 }
 
 .send-btn{
@@ -300,11 +247,102 @@ background:#ffd000;
 font-weight:bold;
 cursor:pointer;
 font-size:15px;
-transition:0.2s;
 }
 
-.send-btn:hover{
-opacity:0.9;
+/* IRC MODE */
+
+body.irc{
+background:black;
+font-family:Consolas,monospace;
+}
+
+body.irc .sidebar{
+background:#000;
+border-right:1px solid #00ff00;
+}
+
+body.irc .sidebar-header{
+background:#001100;
+color:#00ff00;
+}
+
+body.irc .chat-item{
+background:#001100;
+}
+
+body.irc .chat-item-name{
+color:#00ff00;
+}
+
+body.irc .chat-item-last{
+color:#00cc00;
+}
+
+body.irc .header{
+background:#001100;
+color:#00ff00;
+}
+
+body.irc .back-btn{
+background:black;
+color:#00ff00;
+border:1px solid #00ff00;
+}
+
+body.irc .skin-bar{
+background:#000;
+border-bottom:1px solid #00ff00;
+}
+
+body.irc .skin-btn{
+background:#001100;
+color:#00ff00;
+border:1px solid #00ff00;
+}
+
+body.irc .msg{
+background:#001100 !important;
+color:#00ff00 !important;
+border-radius:0;
+box-shadow:none;
+border-left:3px solid #00ff00;
+}
+
+body.irc .username{
+color:#00ff00 !important;
+}
+
+body.irc .bottom{
+background:#000;
+border-top:1px solid #00ff00;
+}
+
+body.irc #messageInput{
+background:black;
+color:#00ff00;
+border:1px solid #00ff00;
+font-family:Consolas,monospace;
+}
+
+body.irc .send-btn{
+background:#001100;
+color:#00ff00;
+border:1px solid #00ff00;
+}
+
+body.irc .name-bar{
+background:#000;
+border:1px solid #00ff00;
+}
+
+body.irc #savedName{
+color:#00ff00;
+}
+
+body.irc .edit-btn{
+background:#001100;
+color:#00ff00;
+border:1px solid #00ff00;
 }
 
 /* MOBILE */
@@ -320,23 +358,16 @@ max-width:75%;
 }
 
 .header{
-
 font-size:22px;
-
 padding-top:58px;
 padding-bottom:16px;
-
 }
 
 .back-btn{
-
 left:10px;
 top:10px;
-
 padding:8px 12px;
-
 font-size:13px;
-
 }
 
 }
@@ -346,7 +377,7 @@ font-size:13px;
 
 <body>
 
-<!-- KAIRE -->
+<!-- SIDEBAR -->
 
 <div class="sidebar">
 
@@ -372,7 +403,7 @@ Realaus laiko pokalbiai
 
 </div>
 
-<!-- DESINE -->
+<!-- CHAT -->
 
 <div class="chat-area">
 
@@ -386,23 +417,25 @@ Realaus laiko pokalbiai
 
 </div>
 
-<!-- THEME -->
+<!-- SKINS -->
 
-<div class="theme-switch">
+<div class="skin-bar">
 
-<button onclick="setTheme('modern')">
+<button class="skin-btn" onclick="setModern()">
 ☀ Modern
 </button>
 
-<button onclick="setTheme('irc')">
+<button class="skin-btn" onclick="setIRC()">
 💻 IRC
 </button>
 
 </div>
 
+<!-- MESSAGES -->
+
 <div id="messages"></div>
 
-<!-- VARDO JUOSTA -->
+<!-- NAME -->
 
 <div class="name-bar">
 
@@ -416,7 +449,7 @@ Vartotojas
 
 </div>
 
-<!-- APATINE -->
+<!-- INPUT -->
 
 <div class="bottom">
 
@@ -464,7 +497,7 @@ const db = firebase.firestore();
 const messagesDiv =
 document.getElementById('messages');
 
-/* VARDAS */
+/* USER */
 
 let userName =
 localStorage.getItem('flashTaxiName')
@@ -496,7 +529,7 @@ document.getElementById(
 
 }
 
-/* SIUNTIMAS */
+/* SEND */
 
 function sendMessage(){
 
@@ -510,9 +543,7 @@ if(text === '') return;
 db.collection('messages').add({
 
 name:userName,
-
 text:text,
-
 time:Date.now()
 
 });
@@ -535,7 +566,7 @@ sendMessage();
 
 });
 
-/* REALTIME CHAT */
+/* CHAT */
 
 db.collection('messages')
 
@@ -561,14 +592,20 @@ const isMine =
 if(isMine){
 
 msg.style.alignSelf='flex-end';
+
+if(!document.body.classList.contains('irc')){
 msg.style.background='#ffd000';
 msg.style.color='black';
+}
 
 }else{
 
 msg.style.alignSelf='flex-start';
+
+if(!document.body.classList.contains('irc')){
 msg.style.background='#2d2d2d';
 msg.style.color='white';
+}
 
 }
 
@@ -622,79 +659,38 @@ messagesDiv.scrollHeight;
 
 });
 
-/* THEMES */
+/* SKINS */
 
-function setTheme(theme){
+function setIRC(){
+
+document.body.classList.add('irc');
 
 localStorage.setItem(
-'flashTheme',
-theme
+'flashTaxiSkin',
+'irc'
 );
 
-applyTheme(theme);
-
 }
 
-function applyTheme(theme){
+function setModern(){
 
-if(theme === 'irc'){
+document.body.classList.remove('irc');
 
-document.body.style.background='#000';
-
-document.body.style.color='#00ff66';
-
-document.querySelector('.header')
-.style.background='#111';
-
-document.querySelector('.header')
-.style.color='#ffd000';
-
-document.querySelector('.sidebar')
-.style.background='#050505';
-
-document.querySelector('.bottom')
-.style.background='#050505';
-
-document.querySelector('#messageInput')
-.style.background='#111';
-
-document.querySelector('#messageInput')
-.style.color='#00ff66';
-
-}else{
-
-document.body.style.background='#111';
-
-document.body.style.color='white';
-
-document.querySelector('.header')
-.style.background='#ffd000';
-
-document.querySelector('.header')
-.style.color='black';
-
-document.querySelector('.sidebar')
-.style.background='#181818';
-
-document.querySelector('.bottom')
-.style.background='#222';
-
-document.querySelector('#messageInput')
-.style.background='white';
-
-document.querySelector('#messageInput')
-.style.color='black';
-
-}
-
-}
-
-applyTheme(
-
-localStorage.getItem('flashTheme')
-|| 'modern'
-
+localStorage.setItem(
+'flashTaxiSkin',
+'modern'
 );
+
+}
+
+const savedSkin =
+localStorage.getItem('flashTaxiSkin');
+
+if(savedSkin === 'irc'){
+
+document.body.classList.add('irc');
+
+}
 
 </script>
 
