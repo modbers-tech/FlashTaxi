@@ -84,13 +84,60 @@ flex-direction:column;
 overflow:hidden;
 }
 
+/* HEADER */
+
 .header{
+
+position:relative;
+
 background:#ffd000;
 color:black;
-padding:18px;
+
+padding:18px 18px 18px 90px;
+
 font-size:28px;
 font-weight:bold;
+
 text-align:center;
+
+}
+
+/* GRIZTI */
+
+.back-btn{
+
+position:absolute;
+
+left:15px;
+top:10px;
+
+z-index:999;
+
+background:#000;
+color:#ffd000;
+
+text-decoration:none;
+
+padding:10px 16px;
+
+border-radius:12px;
+
+font-size:15px;
+font-weight:bold;
+
+border:2px solid #ffd000;
+
+transition:0.2s;
+
+box-shadow:0 0 10px rgba(0,0,0,0.5);
+
+}
+
+.back-btn:hover{
+
+background:#ffd000;
+color:black;
+
 }
 
 /* ZINUTES */
@@ -231,7 +278,23 @@ max-width:75%;
 }
 
 .header{
-font-size:24px;
+
+font-size:22px;
+
+padding-top:58px;
+padding-bottom:16px;
+
+}
+
+.back-btn{
+
+left:10px;
+top:10px;
+
+padding:8px 12px;
+
+font-size:13px;
+
 }
 
 }
@@ -272,7 +335,13 @@ Realaus laiko pokalbiai
 <div class="chat-area">
 
 <div class="header">
+
+<a href="index.html" class="back-btn">
+⬅ Pagrindinis
+</a>
+
 ⚡ FlashTaxi Chat
+
 </div>
 
 <div id="messages"></div>
@@ -455,9 +524,7 @@ date.getHours()
 .toString()
 .padStart(2,'0')
 
-+
-
-':'
++ ':'
 
 +
 
