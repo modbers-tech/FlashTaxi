@@ -1,4 +1,4 @@
-
+```html
 <!DOCTYPE html>
 <html lang="lt">
 <head>
@@ -98,4 +98,77 @@
     <button onclick="sendMessage()">Siųsti</button>
   </div>
 </div>
+
+<script>
+
+const firebaseConfig = {
+  apiKey: "AIzaSyC564evMK0zTR2xzth9qWuRweNf99Zu3sw",
+  authDomain: "flashtaxi-a913f.firebaseapp.com",
+  projectId: "flashtaxi-a913f",
+  storageBucket: "flashtaxi-a913f.firebasestorage.app",
+  messagingSenderId: "73024715827",
+  appId: "1:73024715827:web:efe775ddd74365bcc47746"
+};
+
+firebase.initializeApp(firebaseConfig);
+
+const db = firebase.firestore();
+
+const messagesDiv = document.getElementById('messages');
+
+function sendMessage() {
+
+  const input = document.getElementById('messageInput');
+
+  const text = input.value.trim();
+
+  if(text === '') return;
+
+  db.collection('messages').add({
+    text: text,
+    time: Date.now()
+  });
+
+  input.value = '';
+}
+
+// REAL TIME CHAT
+
+db.collection('messages')
+.orderBy('time')
+.onSnapshot(snapshot => {
+
+  messagesDiv.innerHTML = '';
+
+  snapshot.forEach(doc => {
+
+    const msg = document.createElement('div');
+
+    msg.className = 'msg';
+
+    msg.innerText = doc.data().text;
+
+    messagesDiv.appendChild(msg);
+  });
+
+  messagesDiv.scrollTop = messagesDiv.scrollHeight;
+});
+
+</script>
+
+</body>
 </html>
+```
+
+# Kaip įkelti
+
+1. Atidaryk `chat.html`
+2. Ištrink seną kodą
+3. Įklijuok šį pilną kodą
+4. Save
+5. Push į GitHub
+6. Atidaryk:
+
+```text
+https://modbers-tech.github.io/FlashTaxi/chat.html
+```
