@@ -1,1 +1,247 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
 
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>FlashTaxi Admin</title>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
+<style>
+
+body{
+
+margin:0;
+font-family:Arial;
+background:#111;
+color:white;
+
+}
+
+.header{
+
+background:#ffd000;
+color:black;
+
+padding:20px;
+
+font-size:32px;
+font-weight:bold;
+
+text-align:center;
+
+}
+
+.container{
+
+max-width:700px;
+
+margin:auto;
+
+padding:20px;
+
+}
+
+.card{
+
+background:#1d1d1d;
+
+padding:20px;
+
+margin-bottom:20px;
+
+border-radius:16px;
+
+border:1px solid #333;
+
+}
+
+button{
+
+padding:14px 18px;
+
+border:none;
+
+border-radius:12px;
+
+background:#ffd000;
+
+color:black;
+
+font-weight:bold;
+
+font-size:16px;
+
+cursor:pointer;
+
+margin-top:10px;
+
+}
+
+input{
+
+width:100%;
+
+padding:14px;
+
+border:none;
+
+border-radius:12px;
+
+margin-top:10px;
+
+font-size:16px;
+
+}
+
+.info{
+
+color:#aaa;
+
+margin-top:10px;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+⚡ FlashTaxi Admin
+</div>
+
+<div class="container">
+
+<div class="card">
+
+<h2>🗑 Chat valymas</h2>
+
+<button onclick="clearChat()">
+Išvalyti visą chat
+</button>
+
+</div>
+
+<div class="card">
+
+<h2>📢 Admin žinutė</h2>
+
+<input
+type="text"
+id="adminMsg"
+placeholder="Admin žinutė..."
+>
+
+<button onclick="sendAdminMessage()">
+Siųsti admin žinutę
+</button>
+
+</div>
+
+<div class="card">
+
+<h2>ℹ Status</h2>
+
+<div class="info">
+FlashTaxi admin panel aktyvus.
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+/* PASSWORD */
+
+const pass =
+prompt("Admin password");
+
+if(pass !== "1234"){
+
+document.body.innerHTML =
+"<h1 style='color:red;text-align:center;margin-top:100px;'>NO ACCESS</h1>";
+
+}
+
+/* FIREBASE */
+
+const firebaseConfig = {
+
+apiKey: "AIzaSyC564evMK0zTR2xzth9qWuRweNf99Zu3sw",
+
+authDomain: "flashtaxi-a913f.firebaseapp.com",
+
+projectId: "flashtaxi-a913f",
+
+storageBucket: "flashtaxi-a913f.firebasestorage.app",
+
+messagingSenderId: "73024715827",
+
+appId: "1:73024715827:web:efe775ddd74365bcc47746"
+
+};
+
+firebase.initializeApp(firebaseConfig);
+
+const db = firebase.firestore();
+
+/* CLEAR CHAT */
+
+async function clearChat(){
+
+const ok =
+confirm("Tikrai išvalyti chat?");
+
+if(!ok) return;
+
+const snapshot =
+await db.collection('messages').get();
+
+snapshot.forEach(doc => {
+
+doc.ref.delete();
+
+});
+
+alert("Chat išvalytas");
+
+}
+
+/* ADMIN MESSAGE */
+
+function sendAdminMessage(){
+
+const text =
+document.getElementById('adminMsg')
+.value.trim();
+
+if(text === '') return;
+
+db.collection('messages').add({
+
+name:"⚡ ADMIN",
+
+text:text,
+
+time:Date.now()
+
+});
+
+document.getElementById(
+'adminMsg'
+).value='';
+
+alert("Admin žinutė išsiųsta");
+
+}
+
+</script>
+
+</body>
+</html>
