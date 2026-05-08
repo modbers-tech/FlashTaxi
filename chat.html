@@ -95,6 +95,10 @@
 
   <div id="messages"></div>
 
+  <div style="padding:10px; background:#1b1b1b; border-top:1px solid #333;">
+    <input type="text" id="nameInput" placeholder="Tavo vardas..." style="width:100%; margin-bottom:10px; padding:12px; border:none; border-radius:10px; outline:none; font-size:16px;">
+  </div>
+
   <div class="bottom">
     <input type="text" id="messageInput" placeholder="Rašyti žinutę...">
     <button onclick="sendMessage()">Siųsti</button>
@@ -126,7 +130,10 @@ function sendMessage() {
 
   if(text === '') return;
 
+  const name = document.getElementById('nameInput').value.trim() || 'Anonimas';
+
   db.collection('messages').add({
+    name: name,
     text: text,
     time: Date.now()
   });
@@ -148,7 +155,7 @@ db.collection('messages')
 
     msg.className = 'msg';
 
-    msg.innerText = doc.data().text;
+    msg.innerHTML = '<b>' + doc.data().name + ':</b> ' + doc.data().text;
 
     messagesDiv.appendChild(msg);
   });
