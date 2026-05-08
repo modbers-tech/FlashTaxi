@@ -14,22 +14,65 @@
       font-family: Arial, sans-serif;
       background: #111;
       color: white;
-      display: flex;
-      justify-content: center;
-      align-items: center;
       height: 100vh;
+      display: flex;
     }
 
-    .chat-box {
-      width: 95%;
-      max-width: 500px;
-      height: 90vh;
-      background: #1b1b1b;
-      border-radius: 20px;
-      overflow: hidden;
+    /* KAIRE PUSE */
+
+    .sidebar {
+      width: 260px;
+      background: #181818;
+      border-right: 1px solid #333;
       display: flex;
       flex-direction: column;
-      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    }
+
+    .sidebar-header {
+      background: #ffd000;
+      color: black;
+      padding: 18px;
+      font-size: 22px;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .chat-list {
+      padding: 10px;
+      overflow-y: auto;
+      flex: 1;
+    }
+
+    .chat-item {
+      background: #222;
+      padding: 12px;
+      border-radius: 12px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .chat-item:hover {
+      background: #2d2d2d;
+    }
+
+    .chat-item-name {
+      color: #ffd000;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .chat-item-last {
+      color: #aaa;
+      font-size: 14px;
+    }
+
+    /* DESINE PUSE */
+
+    .chat-area {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
     }
 
     .header {
@@ -58,13 +101,34 @@
       box-shadow: 0 0 10px rgba(0,0,0,0.3);
     }
 
+    .username {
+      font-size: 13px;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    .time {
+      margin-top: 6px;
+      font-size: 11px;
+      opacity: 0.7;
+    }
+
+    #nameInput {
+      margin: 10px;
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      outline: none;
+      font-size: 16px;
+    }
+
     .bottom {
       display: flex;
       padding: 10px;
       background: #222;
     }
 
-    input {
+    #messageInput {
       flex: 1;
       padding: 12px;
       border: none;
@@ -83,26 +147,36 @@
       cursor: pointer;
     }
 
-    button:hover {
-      opacity: 0.9;
-    }
-
-    #nameInput {
-      width: calc(100% - 20px);
-      margin: 10px;
-      box-sizing: border-box;
-    }
-
-    .username {
-      font-size: 13px;
-      margin-bottom: 5px;
-      font-weight: bold;
+    @media(max-width: 800px) {
+      .sidebar {
+        display: none;
+      }
     }
   </style>
 </head>
 <body>
 
-<div class="chat-box">
+<div class="sidebar">
+
+  <div class="sidebar-header">
+    Pokalbiai
+  </div>
+
+  <div class="chat-list">
+    <div class="chat-item">
+      <div class="chat-item-name">
+        FlashTaxi Global Chat
+      </div>
+
+      <div class="chat-item-last">
+        Realaus laiko pokalbiai
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="chat-area">
 
   <div class="header">
     ⚡ FlashTaxi Chat
@@ -186,6 +260,13 @@ db.collection('messages')
       msg.style.color = 'white';
     }
 
+    const date = new Date(data.time);
+
+    const time =
+      date.getHours().toString().padStart(2, '0') +
+      ':' +
+      date.getMinutes().toString().padStart(2, '0');
+
     msg.innerHTML = `
       <div class="username" style="color:${isMine ? '#000' : '#ffd000'}">
         ${(data.name || 'Vartotojas')}
@@ -193,6 +274,10 @@ db.collection('messages')
 
       <div>
         ${data.text}
+      </div>
+
+      <div class="time">
+        ${time}
       </div>
     `;
 
