@@ -25,6 +25,7 @@ color:white;
 height:100vh;
 display:flex;
 overflow:hidden;
+transition:0.2s;
 }
 
 /* KAIRE */
@@ -35,6 +36,7 @@ background:#181818;
 border-right:1px solid #333;
 display:flex;
 flex-direction:column;
+transition:0.2s;
 }
 
 .sidebar-header{
@@ -100,6 +102,8 @@ font-weight:bold;
 
 text-align:center;
 
+transition:0.2s;
+
 }
 
 /* GRIZTI */
@@ -110,8 +114,6 @@ position:absolute;
 
 left:15px;
 top:10px;
-
-z-index:999;
 
 background:#000;
 color:#ffd000;
@@ -129,14 +131,52 @@ border:2px solid #ffd000;
 
 transition:0.2s;
 
-box-shadow:0 0 10px rgba(0,0,0,0.5);
-
 }
 
 .back-btn:hover{
 
 background:#ffd000;
 color:black;
+
+}
+
+/* THEME SWITCH */
+
+.theme-switch{
+
+display:flex;
+
+gap:10px;
+
+padding:10px;
+
+background:#111;
+
+border-bottom:1px solid #222;
+
+}
+
+.theme-switch button{
+
+padding:8px 14px;
+
+border:none;
+
+border-radius:8px;
+
+cursor:pointer;
+
+font-weight:bold;
+
+background:#ffd000;
+
+transition:0.2s;
+
+}
+
+.theme-switch button:hover{
+
+opacity:0.9;
 
 }
 
@@ -239,6 +279,7 @@ display:flex;
 padding:10px;
 background:#222;
 gap:10px;
+transition:0.2s;
 }
 
 #messageInput{
@@ -248,6 +289,7 @@ border:none;
 border-radius:12px;
 outline:none;
 font-size:16px;
+transition:0.2s;
 }
 
 .send-btn{
@@ -341,6 +383,20 @@ Realaus laiko pokalbiai
 </a>
 
 ⚡ FlashTaxi Chat
+
+</div>
+
+<!-- THEME -->
+
+<div class="theme-switch">
+
+<button onclick="setTheme('modern')">
+☀ Modern
+</button>
+
+<button onclick="setTheme('irc')">
+💻 IRC
+</button>
 
 </div>
 
@@ -565,6 +621,80 @@ messagesDiv.scrollTop =
 messagesDiv.scrollHeight;
 
 });
+
+/* THEMES */
+
+function setTheme(theme){
+
+localStorage.setItem(
+'flashTheme',
+theme
+);
+
+applyTheme(theme);
+
+}
+
+function applyTheme(theme){
+
+if(theme === 'irc'){
+
+document.body.style.background='#000';
+
+document.body.style.color='#00ff66';
+
+document.querySelector('.header')
+.style.background='#111';
+
+document.querySelector('.header')
+.style.color='#ffd000';
+
+document.querySelector('.sidebar')
+.style.background='#050505';
+
+document.querySelector('.bottom')
+.style.background='#050505';
+
+document.querySelector('#messageInput')
+.style.background='#111';
+
+document.querySelector('#messageInput')
+.style.color='#00ff66';
+
+}else{
+
+document.body.style.background='#111';
+
+document.body.style.color='white';
+
+document.querySelector('.header')
+.style.background='#ffd000';
+
+document.querySelector('.header')
+.style.color='black';
+
+document.querySelector('.sidebar')
+.style.background='#181818';
+
+document.querySelector('.bottom')
+.style.background='#222';
+
+document.querySelector('#messageInput')
+.style.background='white';
+
+document.querySelector('#messageInput')
+.style.color='black';
+
+}
+
+}
+
+applyTheme(
+
+localStorage.getItem('flashTheme')
+|| 'modern'
+
+);
 
 </script>
 
