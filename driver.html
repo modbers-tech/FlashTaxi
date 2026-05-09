@@ -7,6 +7,7 @@
 <title>FlashTaxi Driver Panel</title>
 
 <style>
+
 *{
     margin:0;
     padding:0;
@@ -71,13 +72,13 @@ button{
     transition:0.3s;
 }
 
+button:hover{
+    opacity:0.9;
+}
+
 .login-btn{
     background:#facc15;
     color:black;
-}
-
-.login-btn:hover{
-    background:#fde047;
 }
 
 .top-grid{
@@ -147,13 +148,24 @@ button{
     font-weight:bold;
 }
 
+.test-badge{
+    color:#facc15;
+    font-weight:bold;
+    margin-bottom:10px;
+    font-size:18px;
+}
+
 @media(max-width:700px){
+
     .big{
         font-size:28px;
     }
+
 }
+
 </style>
 </head>
+
 <body>
 
 <header>
@@ -162,77 +174,109 @@ button{
 
 <div class="container">
 
-<div class="login-box" id="loginPage">
-    <h1>Vairuotojo Prisijungimas</h1>
+    <div class="login-box" id="loginPage">
 
-    <input type="text" placeholder="Vardas" id="name">
-    <input type="password" placeholder="Slaptažodis">
+        <h1>Vairuotojo Prisijungimas</h1>
 
-    <button class="login-btn" onclick="login()">
-        Prisijungti
-    </button>
-</div>
+        <input type="text" placeholder="Vardas" id="name">
 
-<div class="panel hidden" id="driverPanel">
+        <input type="password" placeholder="Slaptažodis">
 
-    <h1>Sveikas, <span id="driverName"></span> 👋</h1>
-
-    <div class="top-grid">
-
-        <div class="card">
-            <h2>Statusas</h2>
-
-            <div class="status" id="statusText">
-                OFFLINE
-            </div>
-
-            <button class="online-btn" id="toggleBtn" onclick="toggleStatus()">
-                Įjungti ONLINE
-            </button>
-        </div>
-
-        <div class="card">
-            <h2>Dienos Pajamos</h2>
-
-            <div class="big" id="money">
-                €0
-            </div>
-        </div>
-
-        <div class="card">
-            <h2>Užsakymai</h2>
-
-            <div class="big" id="orders">
-                0
-            </div>
-        </div>
+        <button class="login-btn" onclick="login()">
+            Prisijungti
+        </button>
 
     </div>
 
-    <div class="order-box">
+    <div class="panel hidden" id="driverPanel">
 
-        <h2>📦 Nauji Užsakymai</h2>
+        <h1>
+            Sveikas,
+            <span id="driverName"></span>
+            👋
+        </h1>
 
-        <div class="order">
+        <div class="top-grid">
 
-            <p><b>Klientas:</b> Jonas</p>
-            <p><b>Iš:</b> Gedimino pr. 10</p>
-            <p><b>Į:</b> Oro uostas</p>
-            <p><b>Kaina:</b> €18</p>
+            <div class="card">
 
-            <button class="accept-btn" onclick="acceptOrder(18)">
-                Priimti Užsakymą
-            </button>
+                <h2>Statusas</h2>
 
-            <button class="nav-btn" onclick="openMaps()">
-                Navigacija
-            </button>
+                <div class="status" id="statusText">
+                    OFFLINE
+                </div>
+
+                <button
+                    class="online-btn"
+                    id="toggleBtn"
+                    onclick="toggleStatus()"
+                >
+                    Įjungti ONLINE
+                </button>
+
+            </div>
+
+            <div class="card">
+
+                <h2>Dienos Pajamos</h2>
+
+                <div class="big" id="money">
+                    €0
+                </div>
+
+            </div>
+
+            <div class="card">
+
+                <h2>Užsakymai</h2>
+
+                <div class="big" id="orders">
+                    0
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="order-box">
+
+            <h2>📦 Nauji Užsakymai</h2>
+
+            <div class="order">
+
+                <div class="test-badge">
+                    🧪 TEST REŽIMAS
+                </div>
+
+                <p>
+                    <b>Užsakymas:</b>
+                    Testinis
+                </p>
+
+                <p>
+                    <b>Statusas:</b>
+                    Demonstracija
+                </p>
+
+                <button
+                    class="accept-btn"
+                    onclick="acceptOrder(18)"
+                >
+                    Priimti Užsakymą
+                </button>
+
+                <button
+                    class="nav-btn"
+                    onclick="openMaps()"
+                >
+                    Navigacija
+                </button>
+
+            </div>
 
         </div>
 
     </div>
-
-</div>
 
 </div>
 
@@ -244,32 +288,48 @@ let totalOrders = 0;
 
 function login(){
 
-    const name = document.getElementById("name").value;
+    const name =
+        document.getElementById("name").value;
 
     if(name === ""){
+
         alert("Įveskite vardą");
         return;
+
     }
 
-    document.getElementById("loginPage").classList.add("hidden");
-    document.getElementById("driverPanel").classList.remove("hidden");
+    document
+        .getElementById("loginPage")
+        .classList.add("hidden");
 
-    document.getElementById("driverName").innerText = name;
+    document
+        .getElementById("driverPanel")
+        .classList.remove("hidden");
+
+    document
+        .getElementById("driverName")
+        .innerText = name;
+
 }
 
 function toggleStatus(){
 
     online = !online;
 
-    const btn = document.getElementById("toggleBtn");
-    const status = document.getElementById("statusText");
+    const btn =
+        document.getElementById("toggleBtn");
+
+    const status =
+        document.getElementById("statusText");
 
     if(online){
 
         status.innerText = "ONLINE";
         status.style.color = "#22c55e";
 
-        btn.innerText = "Išjungti ONLINE";
+        btn.innerText =
+            "Išjungti ONLINE";
+
         btn.classList.add("offline");
 
     }else{
@@ -277,9 +337,13 @@ function toggleStatus(){
         status.innerText = "OFFLINE";
         status.style.color = "#ef4444";
 
-        btn.innerText = "Įjungti ONLINE";
+        btn.innerText =
+            "Įjungti ONLINE";
+
         btn.classList.remove("offline");
+
     }
+
 }
 
 function acceptOrder(price){
@@ -287,10 +351,16 @@ function acceptOrder(price){
     totalMoney += price;
     totalOrders++;
 
-    document.getElementById("money").innerText = "€" + totalMoney;
-    document.getElementById("orders").innerText = totalOrders;
+    document
+        .getElementById("money")
+        .innerText = "€" + totalMoney;
 
-    alert("Užsakymas priimtas!");
+    document
+        .getElementById("orders")
+        .innerText = totalOrders;
+
+    alert("Testinis užsakymas priimtas!");
+
 }
 
 function openMaps(){
@@ -299,6 +369,7 @@ function openMaps(){
         "https://www.google.com/maps/dir/?api=1&destination=Vilnius+Airport",
         "_blank"
     );
+
 }
 
 </script>
