@@ -1,1 +1,307 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
+<title>FlashTaxi Driver Panel</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#0f172a;
+    color:white;
+}
+
+header{
+    background:#111827;
+    padding:20px;
+    text-align:center;
+    font-size:28px;
+    font-weight:bold;
+    color:#facc15;
+    border-bottom:2px solid #facc15;
+}
+
+.container{
+    max-width:1200px;
+    margin:auto;
+    padding:20px;
+}
+
+.login-box,
+.panel{
+    background:#1e293b;
+    padding:25px;
+    border-radius:20px;
+    box-shadow:0 0 20px rgba(0,0,0,0.4);
+}
+
+.login-box{
+    max-width:400px;
+    margin:80px auto;
+}
+
+input{
+    width:100%;
+    padding:14px;
+    margin-top:12px;
+    border:none;
+    border-radius:12px;
+    background:#334155;
+    color:white;
+    font-size:16px;
+}
+
+button{
+    width:100%;
+    padding:14px;
+    margin-top:15px;
+    border:none;
+    border-radius:12px;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.login-btn{
+    background:#facc15;
+    color:black;
+}
+
+.login-btn:hover{
+    background:#fde047;
+}
+
+.top-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
+    margin-top:20px;
+}
+
+.card{
+    background:#334155;
+    padding:20px;
+    border-radius:20px;
+}
+
+.card h2{
+    font-size:18px;
+    margin-bottom:15px;
+}
+
+.big{
+    font-size:35px;
+    font-weight:bold;
+    color:#facc15;
+}
+
+.online-btn{
+    background:#22c55e;
+    color:white;
+}
+
+.offline{
+    background:#ef4444 !important;
+}
+
+.order-box{
+    margin-top:25px;
+    background:#334155;
+    padding:20px;
+    border-radius:20px;
+}
+
+.order{
+    background:#1e293b;
+    padding:15px;
+    border-radius:15px;
+    margin-top:15px;
+}
+
+.accept-btn{
+    background:#3b82f6;
+    color:white;
+}
+
+.nav-btn{
+    background:#f97316;
+    color:white;
+}
+
+.hidden{
+    display:none;
+}
+
+.status{
+    margin-top:10px;
+    font-size:18px;
+    font-weight:bold;
+}
+
+@media(max-width:700px){
+    .big{
+        font-size:28px;
+    }
+}
+</style>
+</head>
+<body>
+
+<header>
+⚡ FlashTaxi Driver
+</header>
+
+<div class="container">
+
+<div class="login-box" id="loginPage">
+    <h1>Vairuotojo Prisijungimas</h1>
+
+    <input type="text" placeholder="Vardas" id="name">
+    <input type="password" placeholder="Slaptažodis">
+
+    <button class="login-btn" onclick="login()">
+        Prisijungti
+    </button>
+</div>
+
+<div class="panel hidden" id="driverPanel">
+
+    <h1>Sveikas, <span id="driverName"></span> 👋</h1>
+
+    <div class="top-grid">
+
+        <div class="card">
+            <h2>Statusas</h2>
+
+            <div class="status" id="statusText">
+                OFFLINE
+            </div>
+
+            <button class="online-btn" id="toggleBtn" onclick="toggleStatus()">
+                Įjungti ONLINE
+            </button>
+        </div>
+
+        <div class="card">
+            <h2>Dienos Pajamos</h2>
+
+            <div class="big" id="money">
+                €0
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Užsakymai</h2>
+
+            <div class="big" id="orders">
+                0
+            </div>
+        </div>
+
+    </div>
+
+    <div class="order-box">
+
+        <h2>📦 Nauji Užsakymai</h2>
+
+        <div class="order">
+
+            <p><b>Klientas:</b> Jonas</p>
+            <p><b>Iš:</b> Gedimino pr. 10</p>
+            <p><b>Į:</b> Oro uostas</p>
+            <p><b>Kaina:</b> €18</p>
+
+            <button class="accept-btn" onclick="acceptOrder(18)">
+                Priimti Užsakymą
+            </button>
+
+            <button class="nav-btn" onclick="openMaps()">
+                Navigacija
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+</div>
+
+<script>
+
+let online = false;
+let totalMoney = 0;
+let totalOrders = 0;
+
+function login(){
+
+    const name = document.getElementById("name").value;
+
+    if(name === ""){
+        alert("Įveskite vardą");
+        return;
+    }
+
+    document.getElementById("loginPage").classList.add("hidden");
+    document.getElementById("driverPanel").classList.remove("hidden");
+
+    document.getElementById("driverName").innerText = name;
+}
+
+function toggleStatus(){
+
+    online = !online;
+
+    const btn = document.getElementById("toggleBtn");
+    const status = document.getElementById("statusText");
+
+    if(online){
+
+        status.innerText = "ONLINE";
+        status.style.color = "#22c55e";
+
+        btn.innerText = "Išjungti ONLINE";
+        btn.classList.add("offline");
+
+    }else{
+
+        status.innerText = "OFFLINE";
+        status.style.color = "#ef4444";
+
+        btn.innerText = "Įjungti ONLINE";
+        btn.classList.remove("offline");
+    }
+}
+
+function acceptOrder(price){
+
+    totalMoney += price;
+    totalOrders++;
+
+    document.getElementById("money").innerText = "€" + totalMoney;
+    document.getElementById("orders").innerText = totalOrders;
+
+    alert("Užsakymas priimtas!");
+}
+
+function openMaps(){
+
+    window.open(
+        "https://www.google.com/maps/dir/?api=1&destination=Vilnius+Airport",
+        "_blank"
+    );
+}
+
+</script>
+
+</body>
+</html>
