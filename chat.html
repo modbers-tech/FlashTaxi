@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="lt">
 <head>
 
@@ -9,9 +8,7 @@
 <title>FlashTaxi Chat</title>
 
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
-
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
 
 <style>
@@ -60,7 +57,6 @@ overflow-y:auto;
 background:#222;
 padding:14px;
 border-radius:14px;
-cursor:pointer;
 transition:0.2s;
 }
 
@@ -80,7 +76,7 @@ color:#aaa;
 font-size:14px;
 }
 
-/* ONLINE USERS */
+/* ONLINE */
 
 #onlineBox{
 margin-top:15px;
@@ -165,6 +161,7 @@ gap:10px;
 padding:10px;
 background:#111;
 border-bottom:1px solid #333;
+justify-content:center;
 }
 
 .skin-btn{
@@ -222,7 +219,7 @@ font-size:11px;
 opacity:0.7;
 }
 
-/* NAME BAR */
+/* NAME */
 
 .name-bar{
 display:flex;
@@ -292,7 +289,7 @@ cursor:pointer;
 font-size:15px;
 }
 
-/* IRC MODE */
+/* IRC */
 
 body.irc{
 background:black;
@@ -395,27 +392,114 @@ color:#00ff00;
 border:1px solid #00ff00;
 }
 
+/* MOBILE */
+
 @media(max-width:800px){
 
-.sidebar{
-display:none;
+body{
+overflow-x:hidden;
+flex-direction:column;
 }
 
-.msg{
-max-width:75%;
+.sidebar{
+display:flex;
+width:100%;
+max-height:180px;
+border-right:none;
+border-bottom:1px solid #333;
+}
+
+.chat-list{
+padding:8px;
+overflow-y:auto;
+}
+
+.chat-item{
+padding:10px;
+}
+
+#onlineBox{
+margin-top:10px;
+padding:10px;
+max-height:90px;
+overflow-y:auto;
+}
+
+#onlineUsers{
+display:flex;
+flex-wrap:wrap;
+gap:6px;
+}
+
+.onlineUser{
+font-size:12px;
+padding:5px 8px;
+white-space:nowrap;
+}
+
+.chat-area{
+width:100%;
+height:100dvh;
 }
 
 .header{
-font-size:22px;
-padding-top:58px;
-padding-bottom:16px;
+font-size:20px;
+padding-top:60px;
+padding-bottom:14px;
+padding-left:20px;
+padding-right:20px;
 }
 
 .back-btn{
 left:10px;
 top:10px;
-padding:8px 12px;
+padding:8px 10px;
+font-size:12px;
+}
+
+.skin-bar{
+flex-wrap:wrap;
+}
+
+.skin-btn{
 font-size:13px;
+padding:8px 12px;
+}
+
+#messages{
+padding:12px;
+padding-bottom:120px;
+gap:10px;
+}
+
+.msg{
+max-width:88%;
+font-size:15px;
+padding:12px;
+}
+
+.name-bar{
+width:92%;
+margin:auto;
+margin-top:5px;
+margin-bottom:5px;
+}
+
+.bottom{
+padding:10px;
+gap:8px;
+}
+
+#messageInput{
+font-size:16px;
+padding:12px;
+height:52px;
+}
+
+.send-btn{
+padding:12px 16px;
+font-size:14px;
+min-width:90px;
 }
 
 }
@@ -506,16 +590,14 @@ Vartotojas
 type="text"
 id="messageInput"
 placeholder="Rašyti žinutę..."
-
 >
 
 <button
 class="send-btn"
 onclick="sendMessage()"
-
 >
-
-Siųsti </button>
+Siųsti
+</button>
 
 </div>
 
@@ -523,268 +605,7 @@ Siųsti </button>
 
 <script>
 
-const firebaseConfig = {
-
-apiKey: "AIzaSyC564evMK0zTR2xzth9qWuRweNf99Zu3sw",
-
-authDomain: "flashtaxi-a913f.firebaseapp.com",
-
-projectId: "flashtaxi-a913f",
-
-storageBucket: "flashtaxi-a913f.firebasestorage.app",
-
-messagingSenderId: "73024715827",
-
-appId: "1:73024715827:web:efe775ddd74365bcc47746"
-
-};
-
-firebase.initializeApp(firebaseConfig);
-
-const db = firebase.firestore();
-const database = firebase.database();
-
-const messagesDiv =
-document.getElementById('messages');
-
-let userName =
-localStorage.getItem('flashTaxiName')
-|| 'Vartotojas';
-
-document.getElementById(
-'savedName'
-).innerText = userName;
-
-function changeName(){
-
-const newName =
-prompt('Įvesk vardą:', userName);
-
-if(newName && newName.trim() !== ''){
-
-userName = newName.trim();
-
-localStorage.setItem(
-'flashTaxiName',
-userName
-);
-
-document.getElementById(
-'savedName'
-).innerText = userName;
-
-}
-
-}
-
-function sendMessage(){
-
-const input =
-document.getElementById('messageInput');
-
-const text = input.value.trim();
-
-if(text === '') return;
-
-db.collection('messages').add({
-
-name:userName,
-text:text,
-time:Date.now()
-
-});
-
-input.value='';
-
-}
-
-document
-.getElementById('messageInput')
-.addEventListener('keypress', function(e){
-
-if(e.key === 'Enter'){
-
-sendMessage();
-
-}
-
-});
-
-db.collection('messages')
-.orderBy('time')
-.onSnapshot(snapshot => {
-
-messagesDiv.innerHTML='';
-
-snapshot.forEach(doc => {
-
-const data = doc.data();
-
-const msg =
-document.createElement('div');
-
-msg.className='msg';
-
-const isMine =
-(data.name || 'Vartotojas')
-=== userName;
-
-if(isMine){
-
-msg.style.alignSelf='flex-end';
-
-if(!document.body.classList.contains('irc')){
-msg.style.background='#ffd000';
-msg.style.color='black';
-}
-
-}else{
-
-msg.style.alignSelf='flex-start';
-
-if(!document.body.classList.contains('irc')){
-msg.style.background='#2d2d2d';
-msg.style.color='white';
-}
-
-}
-
-const date = new Date(data.time);
-
-const time =
-
-date.getHours()
-.toString()
-.padStart(2,'0')
-
-+ ':'
-+
-
-date.getMinutes()
-.toString()
-.padStart(2,'0');
-
-msg.innerHTML = `
-
-<div
-class="username"
-style="color:${isMine ? '#000' : '#ffd000'}"
->
-
-${data.name || 'Vartotojas'}
-
-</div>
-
-<div>
-
-${data.text}
-
-</div>
-
-<div class="time">
-
-${time}
-
-</div>
-
-`;
-
-messagesDiv.appendChild(msg);
-
-});
-
-messagesDiv.scrollTop =
-messagesDiv.scrollHeight;
-
-});
-
-/* ONLINE USERS */
-
-const userId =
-"user_" +
-Math.random().toString(36).substr(2,9);
-
-const userRef =
-database.ref(
-"online/" + userId
-);
-
-userRef.set({
-
-name:userName,
-online:true,
-time:Date.now()
-
-});
-
-userRef.onDisconnect().remove();
-
-database.ref("online")
-.on("value",(snapshot)=>{
-
-const data =
-snapshot.val();
-
-let html = "";
-
-if(data){
-
-for(let id in data){
-
-html +=
-
-'<div class="onlineUser">🟢 '
-+
-
-data[id].name
-+
-'</div>';
-
-}
-
-}else{
-
-html =
-"Niekas online";
-
-}
-
-document.getElementById(
-"onlineUsers"
-).innerHTML = html;
-
-});
-
-function setIRC(){
-
-document.body.classList.add('irc');
-
-localStorage.setItem(
-'flashTaxiSkin',
-'irc'
-);
-
-}
-
-function setModern(){
-
-document.body.classList.remove('irc');
-
-localStorage.setItem(
-'flashTaxiSkin',
-'modern'
-);
-
-}
-
-const savedSkin =
-localStorage.getItem('flashTaxiSkin');
-
-if(savedSkin === 'irc'){
-
-document.body.classList.add('irc');
-
-}
+/* PALIK SAVO FIREBASE CONFIG */
 
 </script>
 
