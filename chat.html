@@ -588,7 +588,39 @@ sendMessage();
 }
 
 });
+});
 
+function formatMessage(text){
+
+const urlRegex =
+/(https?:\/\/[^\s]+)/g;
+
+return text.replace(urlRegex,function(url){
+
+return `
+
+<a
+href="${url}"
+target="_blank"
+style="
+color:#00aaff;
+font-weight:bold;
+text-decoration:underline;
+word-break:break-all;
+"
+>
+
+${url}
+
+</a>
+
+`;
+
+});
+
+}
+
+db.collection('messages')
 db.collection('messages')
 .orderBy('time')
 .onSnapshot(snapshot => {
@@ -656,7 +688,7 @@ ${data.name || 'Vartotojas'}
 
 <div>
 
-${data.text}
+${formatMessage(data.text)}
 
 </div>
 
