@@ -25,7 +25,6 @@ background:#111;
 color:white;
 height:100dvh;
 display:flex;
-flex-direction:row;
 overflow:hidden;
 }
 
@@ -33,6 +32,7 @@ overflow:hidden;
 
 .sidebar{
 width:260px;
+min-width:260px;
 background:#181818;
 border-right:1px solid #333;
 display:flex;
@@ -57,11 +57,6 @@ overflow-y:auto;
 background:#222;
 padding:14px;
 border-radius:14px;
-transition:0.2s;
-}
-
-.chat-item:hover{
-background:#2d2d2d;
 }
 
 .chat-item-name{
@@ -84,21 +79,18 @@ padding:12px;
 border:1px solid #00ff66;
 border-radius:14px;
 background:rgba(0,255,100,0.05);
-box-shadow:0 0 10px rgba(0,255,100,0.2);
 }
 
 #onlineTitle{
 color:#00ff66;
 font-weight:bold;
 margin-bottom:10px;
-text-shadow:0 0 8px #00ff66;
 }
 
 #onlineUsers{
 display:flex;
 flex-direction:column;
 gap:8px;
-font-size:14px;
 }
 
 .onlineUser{
@@ -107,7 +99,7 @@ border-radius:10px;
 background:rgba(0,255,100,0.08);
 border:1px solid #00ff66;
 color:#00ff66;
-text-shadow:0 0 5px #00ff66;
+font-size:14px;
 }
 
 /* CHAT */
@@ -131,8 +123,6 @@ font-weight:bold;
 text-align:center;
 }
 
-/* BACK */
-
 .back-btn{
 position:absolute;
 left:15px;
@@ -145,12 +135,6 @@ border-radius:12px;
 font-size:15px;
 font-weight:bold;
 border:2px solid #ffd000;
-transition:0.2s;
-}
-
-.back-btn:hover{
-background:#ffd000;
-color:black;
 }
 
 /* SKINS */
@@ -190,21 +174,7 @@ gap:12px;
 padding:12px 14px;
 border-radius:18px;
 max-width:320px;
-min-width:90px;
 word-wrap:break-word;
-box-shadow:0 0 10px rgba(0,0,0,0.35);
-animation:show 0.15s ease;
-}
-
-@keyframes show{
-from{
-opacity:0;
-transform:translateY(10px);
-}
-to{
-opacity:1;
-transform:translateY(0);
-}
 }
 
 .username{
@@ -240,10 +210,6 @@ border-radius:12px;
 font-size:13px;
 font-weight:bold;
 color:#bbb;
-overflow:hidden;
-text-overflow:ellipsis;
-white-space:nowrap;
-max-width:110px;
 }
 
 .edit-btn{
@@ -253,19 +219,15 @@ border:none;
 border-radius:8px;
 padding:5px 8px;
 cursor:pointer;
-font-size:12px;
 }
 
 /* INPUT */
 
 .bottom{
-position:sticky;
-bottom:0;
 display:flex;
 padding:10px;
 background:#222;
 gap:10px;
-z-index:999;
 }
 
 #messageInput{
@@ -275,8 +237,6 @@ border:none;
 border-radius:12px;
 outline:none;
 font-size:16px;
-background:white;
-color:black;
 }
 
 .send-btn{
@@ -286,7 +246,6 @@ border-radius:12px;
 background:#ffd000;
 font-weight:bold;
 cursor:pointer;
-font-size:15px;
 }
 
 /* IRC */
@@ -344,19 +303,11 @@ body.irc .msg{
 background:#001100 !important;
 color:#00ff00 !important;
 border-radius:0;
-box-shadow:none;
 border-left:3px solid #00ff00;
 }
 
 body.irc .username{
-display:inline-block;
-padding:2px 6px;
-border:1px solid #00ff00;
-background:#001100;
 color:#00ff00 !important;
-border-radius:4px;
-margin-bottom:4px;
-font-weight:bold;
 }
 
 body.irc .bottom{
@@ -368,25 +319,9 @@ body.irc #messageInput{
 background:black;
 color:#00ff00;
 border:1px solid #00ff00;
-font-family:Consolas,monospace;
 }
 
 body.irc .send-btn{
-background:#001100;
-color:#00ff00;
-border:1px solid #00ff00;
-}
-
-body.irc .name-bar{
-background:#000;
-border:1px solid #00ff00;
-}
-
-body.irc #savedName{
-color:#00ff00;
-}
-
-body.irc .edit-btn{
 background:#001100;
 color:#00ff00;
 border:1px solid #00ff00;
@@ -397,44 +332,17 @@ border:1px solid #00ff00;
 @media(max-width:800px){
 
 body{
-overflow-x:hidden;
 flex-direction:column;
+overflow-x:hidden;
 }
 
 .sidebar{
-display:flex;
 width:100%;
+min-width:100%;
 max-height:180px;
 border-right:none;
 border-bottom:1px solid #333;
-}
-
-.chat-list{
-padding:8px;
 overflow-y:auto;
-}
-
-.chat-item{
-padding:10px;
-}
-
-#onlineBox{
-margin-top:10px;
-padding:10px;
-max-height:90px;
-overflow-y:auto;
-}
-
-#onlineUsers{
-display:flex;
-flex-wrap:wrap;
-gap:6px;
-}
-
-.onlineUser{
-font-size:12px;
-padding:5px 8px;
-white-space:nowrap;
 }
 
 .chat-area{
@@ -457,25 +365,26 @@ padding:8px 10px;
 font-size:12px;
 }
 
-.skin-bar{
+#onlineUsers{
+display:flex;
 flex-wrap:wrap;
+gap:6px;
 }
 
-.skin-btn{
-font-size:13px;
-padding:8px 12px;
-}
-
-#messages{
-padding:12px;
-padding-bottom:120px;
-gap:10px;
+.onlineUser{
+font-size:12px;
+padding:5px 8px;
+white-space:nowrap;
 }
 
 .msg{
 max-width:88%;
 font-size:15px;
+}
+
+#messages{
 padding:12px;
+padding-bottom:100px;
 }
 
 .name-bar{
@@ -485,21 +394,14 @@ margin-top:5px;
 margin-bottom:5px;
 }
 
-.bottom{
-padding:10px;
-gap:8px;
-}
-
 #messageInput{
 font-size:16px;
-padding:12px;
 height:52px;
 }
 
 .send-btn{
-padding:12px 16px;
 font-size:14px;
-min-width:90px;
+padding:12px 14px;
 }
 
 }
@@ -605,7 +507,258 @@ Siųsti
 
 <script>
 
-/* PALIK SAVO FIREBASE CONFIG */
+const firebaseConfig = {
+
+apiKey: "AIzaSyC564evMK0zTR2xzth9qWuRweNf99Zu3sw",
+authDomain: "flashtaxi-a913f.firebaseapp.com",
+projectId: "flashtaxi-a913f",
+storageBucket: "flashtaxi-a913f.firebasestorage.app",
+messagingSenderId: "73024715827",
+appId: "1:73024715827:web:efe775ddd74365bcc47746"
+
+};
+
+firebase.initializeApp(firebaseConfig);
+
+const db = firebase.firestore();
+const database = firebase.database();
+
+const messagesDiv =
+document.getElementById('messages');
+
+let userName =
+localStorage.getItem('flashTaxiName')
+|| 'Vartotojas';
+
+document.getElementById(
+'savedName'
+).innerText = userName;
+
+function changeName(){
+
+const newName =
+prompt('Įvesk vardą:', userName);
+
+if(newName && newName.trim() !== ''){
+
+userName = newName.trim();
+
+localStorage.setItem(
+'flashTaxiName',
+userName
+);
+
+document.getElementById(
+'savedName'
+).innerText = userName;
+
+}
+
+}
+
+function sendMessage(){
+
+const input =
+document.getElementById('messageInput');
+
+const text = input.value.trim();
+
+if(text === '') return;
+
+db.collection('messages').add({
+
+name:userName,
+text:text,
+time:Date.now()
+
+});
+
+input.value='';
+
+}
+
+document
+.getElementById('messageInput')
+.addEventListener('keypress', function(e){
+
+if(e.key === 'Enter'){
+
+sendMessage();
+
+}
+
+});
+
+db.collection('messages')
+.orderBy('time')
+.onSnapshot(snapshot => {
+
+messagesDiv.innerHTML='';
+
+snapshot.forEach(doc => {
+
+const data = doc.data();
+
+const msg =
+document.createElement('div');
+
+msg.className='msg';
+
+const isMine =
+(data.name || 'Vartotojas')
+=== userName;
+
+if(isMine){
+
+msg.style.alignSelf='flex-end';
+
+if(!document.body.classList.contains('irc')){
+msg.style.background='#ffd000';
+msg.style.color='black';
+}
+
+}else{
+
+msg.style.alignSelf='flex-start';
+
+if(!document.body.classList.contains('irc')){
+msg.style.background='#2d2d2d';
+msg.style.color='white';
+}
+
+}
+
+const date = new Date(data.time);
+
+const time =
+
+date.getHours()
+.toString()
+.padStart(2,'0')
+
++ ':'
++
+
+date.getMinutes()
+.toString()
+.padStart(2,'0');
+
+msg.innerHTML = `
+
+<div
+class="username"
+style="color:${isMine ? '#000' : '#ffd000'}"
+>
+
+${data.name || 'Vartotojas'}
+
+</div>
+
+<div>
+
+${data.text}
+
+</div>
+
+<div class="time">
+
+${time}
+
+</div>
+
+`;
+
+messagesDiv.appendChild(msg);
+
+});
+
+messagesDiv.scrollTop =
+messagesDiv.scrollHeight;
+
+});
+
+/* ONLINE */
+
+const userId =
+"user_" +
+Math.random().toString(36).substr(2,9);
+
+const userRef =
+database.ref(
+"online/" + userId
+);
+
+userRef.set({
+
+name:userName,
+online:true,
+time:Date.now()
+
+});
+
+userRef.onDisconnect().remove();
+
+database.ref("online")
+.on("value",(snapshot)=>{
+
+const data =
+snapshot.val();
+
+let html = "";
+
+if(data){
+
+for(let id in data){
+
+html +=
+'<div class="onlineUser">🟢 ' +
+data[id].name +
+'</div>';
+
+}
+
+}else{
+
+html = "Niekas online";
+
+}
+
+document.getElementById(
+"onlineUsers"
+).innerHTML = html;
+
+});
+
+function setIRC(){
+
+document.body.classList.add('irc');
+
+localStorage.setItem(
+'flashTaxiSkin',
+'irc'
+);
+
+}
+
+function setModern(){
+
+document.body.classList.remove('irc');
+
+localStorage.setItem(
+'flashTaxiSkin',
+'modern'
+);
+
+}
+
+const savedSkin =
+localStorage.getItem('flashTaxiSkin');
+
+if(savedSkin === 'irc'){
+
+document.body.classList.add('irc');
+
+}
 
 </script>
 
