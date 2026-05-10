@@ -34,15 +34,14 @@ font-family:Arial,sans-serif;
 
 background:
 linear-gradient(
-rgba(0,0,0,0.20),
-rgba(0,0,0,0.45)
+rgba(0,0,0,0.18),
+rgba(0,0,0,0.38)
 ),
 url("fonas.png");
 
 background-size:cover;
-background-position:center center;
+background-position:center;
 background-repeat:no-repeat;
-background-attachment:fixed;
 
 color:white;
 
@@ -55,7 +54,6 @@ align-items:center;
 padding:20px;
 
 overflow-x:hidden;
-overflow-y:auto;
 
 }
 
@@ -72,16 +70,11 @@ padding:25px;
 
 text-align:center;
 
-background:rgba(0,0,0,0.12);
+background:rgba(0,0,0,0.22);
 
-backdrop-filter:blur(6px);
+border-radius:24px;
 
-border-radius:28px;
-
-box-shadow:
-0 0 35px rgba(0,0,0,0.35);
-
-animation:fade 1s ease;
+animation:fade 0.5s ease;
 
 }
 
@@ -91,14 +84,11 @@ animation:fade 1s ease;
 
 h1{
 
-font-size:46px;
+font-size:44px;
 
 margin-bottom:28px;
 
 color:#ffd000;
-
-text-shadow:
-0 0 18px rgba(255,208,0,0.55);
 
 }
 
@@ -118,27 +108,28 @@ margin:14px 0;
 
 border:none;
 
-border-radius:22px;
+border-radius:20px;
 
-font-size:19px;
+font-size:18px;
 font-weight:bold;
 
 cursor:pointer;
 
 text-decoration:none;
 
-transition:0.25s;
-
-box-shadow:
-0 0 18px rgba(0,0,0,0.35);
+transition:0.15s;
 
 }
 
+/* ========================= */
+/* HOVER */
+/* ========================= */
+
 .btn:hover{
 
-transform:scale(1.03);
+transform:scale(1.02);
 
-filter:brightness(1.08);
+opacity:0.95;
 
 }
 
@@ -182,37 +173,32 @@ color:white;
 
 #clock{
 
-margin-top:28px;
+margin-top:25px;
 
 display:inline-block;
 
 padding:12px 24px;
 
-font-size:28px;
+font-size:26px;
 font-weight:bold;
 
-background:rgba(0,0,0,0.55);
+background:rgba(0,0,0,0.45);
 
-border-radius:14px;
+border-radius:12px;
 
-border:3px solid rgba(255,214,0,0.75);
-
-box-shadow:
-0 0 20px rgba(255,214,0,0.22);
-
-backdrop-filter:blur(4px);
+border:2px solid rgba(255,214,0,0.55);
 
 }
 
 /* ========================= */
-/* ANIMATION */
+/* FADE */
 /* ========================= */
 
 @keyframes fade{
 
 from{
 opacity:0;
-transform:translateY(20px);
+transform:translateY(10px);
 }
 
 to{
@@ -229,56 +215,20 @@ transform:translateY(0);
 @media(max-width:600px){
 
 .wrapper{
-padding:20px;
+padding:18px;
 }
 
 h1{
-font-size:36px;
+font-size:34px;
 }
 
 .btn{
-font-size:17px;
+font-size:16px;
 padding:16px;
 }
 
 #clock{
 font-size:22px;
-}
-
-}
-
-/* ========================= */
-/* LANDSCAPE */
-/* ========================= */
-
-@media screen and (orientation: landscape){
-
-body{
-
-align-items:flex-start;
-
-padding-top:40px;
-
-}
-
-.wrapper{
-
-max-width:700px;
-
-}
-
-.btn{
-
-font-size:22px;
-
-padding:20px;
-
-}
-
-h1{
-
-font-size:52px;
-
 }
 
 }
