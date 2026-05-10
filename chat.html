@@ -591,9 +591,8 @@ sendMessage();
 });
 
 function formatMessage(text){
-
-const urlRegex =
-/(https?:\/\/[^\s]+)/g;
+  
+const urlRegex = /(https?:\/\/[^\s]+)/g;
 
 return text.replace(urlRegex,function(url){
 
