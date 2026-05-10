@@ -610,18 +610,13 @@ word-break:break-all;
 >
 
 ${url}
-
 </a>
-});
-
-}
 `;
 
 });
 
 }
 
-db.collection('messages')
 db.collection('messages')
 .orderBy('time')
 .onSnapshot(snapshot => {
