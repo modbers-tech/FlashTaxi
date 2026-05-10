@@ -588,16 +588,14 @@ sendMessage();
 }
 
 });
-});
 
 function formatMessage(text){
-  
+
 const urlRegex = /(https?:\/\/[^\s]+)/g;
 
-return text.replace(urlRegex,function(url){
+return text.replace(urlRegex, function(url){
 
 return `
-
 <a
 href="${url}"
 target="_blank"
@@ -611,7 +609,7 @@ word-break:break-all;
 ${url}
 </a>
 `;
-  
+
 });
 
 }
