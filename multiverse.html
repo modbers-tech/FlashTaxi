@@ -6,98 +6,195 @@
 <title>FlashTaxi Garage</title>
 
 <style>
+
 body{
     margin:0;
-    font-family:Arial,sans-serif;
     background:#050816;
+    font-family:Arial;
     color:white;
-    overflow:hidden;
 }
 
-body::before{
-    content:"";
+.menu{
     position:fixed;
-    inset:0;
-    background:linear-gradient(to bottom,#07111f,#02040b);
-}
-
-.container{
-    position:relative;
-    z-index:2;
-    display:flex;
-    height:100vh;
-}
-
-.sidebar{
-    width:280px;
-    background:#0b1224;
-    border-right:2px solid #32ff8c;
+    left:0;
+    top:0;
+    width:220px;
+    height:100%;
+    background:#10182c;
     padding:20px;
-    overflow:auto;
 }
 
-.sidebar h2{
-    color:#32ff8c;
-}
-
-.partBtn{
+button{
     width:100%;
-    margin-bottom:10px;
     padding:14px;
+    margin-bottom:10px;
     border:none;
-    border-radius:14px;
-    background:#15213d;
-    color:white;
-    cursor:pointer;
-    font-size:16px;
-    transition:0.2s;
-}
-
-.partBtn:hover{
+    border-radius:12px;
     background:#32ff8c;
-    color:black;
+    font-size:16px;
+    cursor:pointer;
 }
 
 .garage{
-    flex:1;
-    position:relative;
+    margin-left:240px;
+    height:100vh;
     display:flex;
     justify-content:center;
     align-items:center;
 }
 
-.carArea{
+.car{
     position:relative;
-    width:700px;
-    height:500px;
+    width:500px;
+    height:300px;
 }
 
-.carBase{
+.base{
     position:absolute;
-    bottom:80px;
-    left:150px;
-    width:400px;
-    height:120px;
-    background:#ffd000;
-    border-radius:40px 40px 25px 25px;
-    box-shadow:0 0 30px #ffd00066;
+    bottom:60px;
+    left:60px;
+    width:380px;
+    height:100px;
+    background:gold;
+    border-radius:30px;
 }
 
 .roof{
     position:absolute;
-    bottom:170px;
-    left:240px;
-    width:220px;
-    height:80px;
-    background:#ffd000;
-    border-radius:30px 30px 10px 10px;
+    bottom:140px;
+    left:140px;
+    width:200px;
+    height:70px;
+    background:gold;
+    border-radius:20px;
     display:none;
 }
 
-.taxiSign{
+.sign{
     position:absolute;
-    bottom:255px;
-    left:315px;
-    width:80px;
-    text-align:center;
+    bottom:220px;
+    left:210px;
+    background:black;
+    color:yellow;
+    padding:8px;
+    border-radius:10px;
+    display:none;
+}
+
+.engine1{
+    position:absolute;
+    left:10px;
+    bottom:90px;
+    width:40px;
+    height:40px;
+    background:cyan;
+    border-radius:50%;
+    box-shadow:0 0 20px cyan;
+    display:none;
+}
+
+.engine2{
+    position:absolute;
+    right:10px;
+    bottom:90px;
+    width:40px;
+    height:40px;
+    background:cyan;
+    border-radius:50%;
+    box-shadow:0 0 20px cyan;
+    display:none;
+}
+
+.portal{
+    position:absolute;
+    right:-100px;
+    top:20px;
+    width:100px;
+    height:100px;
+    border-radius:50%;
+    background:purple;
+    box-shadow:0 0 30px purple;
+    display:none;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="menu">
+
+<h2>FLASH TAXI</h2>
+
+<button onclick="toggle('roof')">
+Stogas
+</button>
+
+<button onclick="toggle('sign')">
+Taxi ženklas
+</button>
+
+<button onclick="engines()">
+Varikliai
+</button>
+
+<button onclick="toggle('portal')">
+Portalas
+</button>
+
+</div>
+
+<div class="garage">
+
+<div class="car">
+
+<div class="portal" id="portal"></div>
+
+<div class="roof" id="roof"></div>
+
+<div class="sign" id="sign">
+TAXI
+</div>
+
+<div class="engine1" id="engine1"></div>
+<div class="engine2" id="engine2"></div>
+
+<div class="base"></div>
+
+</div>
+
+</div>
+
+<script>
+
+function toggle(id){
+
+let el=document.getElementById(id);
+
+if(el.style.display=="block"){
+    el.style.display="none";
+}else{
+    el.style.display="block";
+}
+
+}
+
+function engines(){
+
+let e1=document.getElementById("engine1");
+let e2=document.getElementById("engine2");
+
+if(e1.style.display=="block"){
+    e1.style.display="none";
+    e2.style.display="none";
+}else{
+    e1.style.display="block";
+    e2.style.display="block";
+}
+
+}
+
+</script>
+
+</body>
 </html>
